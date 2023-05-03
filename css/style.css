@@ -1,0 +1,136 @@
+body{
+    background-color: #333;
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana;
+    font-size: small;
+}
+
+#btnAdd{
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+}
+
+.btn, .btn-sm, .btn-xs{
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.btn:hover{
+    border: 2px solid #333;
+    width: 68px;
+}
+
+.btn-sm:hover{
+    border: 1px solid #333;
+    width: 46px;
+}
+
+.btn-xs:hover{
+    border: 1px solid #333;
+    width: 22px;
+}
+
+#bgModal{
+    z-index: 999;
+    background-color: #333;
+    opacity: 0.6;
+    width: 100%;
+    min-height: 100%;
+    position: absolute;
+    display: none;
+}
+
+.modal{
+    display: none;
+    z-index: 1000;
+    background-color: azure;
+    border-radius: 6px;
+    border: 1px solid #333;
+    position: absolute;
+}
+
+.toolbar-modal{
+    border-radius: 6px;
+    padding: 4px;
+    background-color: #eef;
+}
+
+#btnEditSave{
+    float: right;
+}
+
+.content-modal{
+    padding: 8px;
+}
+
+#textEdit{
+    width: calc(100% - 8px);
+    font-size: small;
+    font-family: Verdana;
+}
+
+.toolbar-note{
+    padding: 2px;
+    background-color: #cce;
+}
+
+.content-note{
+    padding: 6px;
+}
+
+.btnNoteEdit{
+    float: right;
+}
+
+.btnNoteColor{
+    float: right;
+}
+
+#contentColor{
+    padding: 0px 8px 8px 8px;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 4px;
+}
+
+.item-color{
+    height: 3vw;
+    cursor: pointer;
+    border: 1px solid #666;
+}
+
+@media screen and (min-width: 768px) {
+    #modalEdit{
+        top: 20vh;
+        width: 30vw;
+        left: 35vw;
+    }
+
+    .container-note{
+        display: block;
+        background-color: #eee;
+        position: absolute;
+        min-width: 200px;
+        max-width: 400px;
+        min-height: 200px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #modalEdit{
+        top: 20vh;
+        width: 80vw;
+        left: 10vw;
+    }
+
+    .container-note{
+        display: block;
+        background-color: #eee;
+        position: absolute;
+        min-width: 150px;
+        max-width: 250px;
+        min-height: 150px;
+    }
+}

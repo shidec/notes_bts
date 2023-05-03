@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Notes - Notes</title>
+    <meta name="description" content="App to create pinnable notes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <style>
+        body {
+            background-color: #333;
+            margin: 0px;
+            padding: 0px;
+            font-family: Verdana;
+            font-size: small;
+            color: black;
+        }
+
+        @media screen and (min-width: 768px) {
+            .container-note{
+                display: block;
+                background-color: #eee;
+                position: absolute;
+                min-width: 200px;
+                max-width: 400px;
+                min-height: 200px;
+                padding: 8px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container-note{
+                display: block;
+                background-color: #eee;
+                position: absolute;
+                min-width: 150px;
+                max-width: 250px;
+                min-height: 150px;
+                padding: 8px;
+            }
+        }
+
+        #btnAdd {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+        }
+
+        .btn,
+        .btn-sm,
+        .btn-xs {
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            border: 2px solid #222;
+            width: 68px;
+        }        
+
+        #bgModal{
+            z-index: 999;
+            background-color: #333;
+            opacity: 0.6;
+            width: 100%;
+            min-height: 100%;
+            position: absolute;
+            display: none;
+        }
+
+        .modal{
+            display: none;
+            z-index: 1000;
+            background-color: azure;
+            border-radius: 6px;
+            border: 1px solid #333;
+            position: absolute;
+        }
+
+        .toolbar-modal{
+            border-radius: 6px;
+            padding: 4px;
+            background-color: #eef;
+        }
+
+        .content-modal{
+            padding: 8px;
+        }
+
+        @media screen and (min-width: 768px) {
+            #modalEdit{
+                top: 20vh;
+                width: 30vw;
+                left: 35vw;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            #modalEdit{
+                top: 20vh;
+                width: 80vw;
+                left: 10vw;
+            }
+        }
+
+        #textEdit{
+            width: calc(100% - 8px);
+            font-size: small;
+            font-family: Verdana;
+        }
+
+        #btnEditSave{
+            float: right;
+        }
+
+        #contentColor{
+            padding: 0px 8px 8px 8px;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 4px;
+        }
+
+        .item-color{
+            height: 3vw;
+            cursor: pointer;
+            border: 1px solid #666;
+        }
+    </style>
+</head>
+<body>
+    <img class="btn" id="btnAdd" src="img/add.png" alt="Add" />
+    <div id="container"></div>
+    <div id="bgModal"></div>    
+    <div id="modalEdit" class="modal">
+        <div class="toolbar-modal">
+            <img class="btn-sm" id="btnEditClose" src="img/close.png" title="Close" alt="Close">
+            <img class="btn-sm" id="btnEditSave" src="img/save.png" title="Save" alt="Save">
+        </div>
+        <div class="content-modal">
+            <textarea rows="12" id="textEdit" style="background-color: #fff;"></textarea>
+        </div>
+        <div id="contentColor">
+            <div class="item-color btnColors" style="background-color: #fff;"></div>
+            <div class="item-color btnColors" style="background-color: #c6afe9;"></div>
+            <div class="item-color btnColors" style="background-color: #fca;"></div>
+            <div class="item-color btnColors" style="background-color: #aff;"></div>
+            <div class="item-color btnColors" style="background-color: #faf;"></div>
+            <div class="item-color btnColors" style="background-color: #ffa;"></div>
+            <div class="item-color btnColors" style="background-color: #acf;"></div>
+            <div class="item-color btnColors" style="background-color: #ddd;"></div>
+            <div class="item-color btnColors" style="background-color: #afc;"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        'use strict';
+
+        let lastId = 0;
+        let lastXY = 10;
+
+        const container = document.getElementById('container');
+        const btnAdd = document.getElementById('btnAdd');
+        const btnEditClose = document.getElementById('btnEditClose');
+        const btnEditSave = document.getElementById('btnEditSave');
+        const bgModal = document.getElementById('bgModal');
+        const modalEdit = document.getElementById('modalEdit');
+        const textEdit = document.getElementById('textEdit');
+        const btnColors = document.querySelectorAll('.btnColors');
+        
+        btnAdd.addEventListener('click', function(){
+            textEdit.value = '';
+            textEdit.style.backgroundColor = '#fff';
+
+            bgModal.style.display = 'block';
+            modalEdit.style.display = 'block';
+
+            textEdit.focus();
+        });
+        
+        btnEditClose.addEventListener('click', function(){
+            bgModal.style.display = 'none';
+            modalEdit.style.display = 'none';
+        });
+        
+        btnEditSave.addEventListener('click', function(){
+            const note = {id: ++lastId, text: textEdit.value, backgroundColor: textEdit.style.backgroundColor, x: lastXY, y: lastXY+=25};
+            notes.push(note);
+
+            renderNote();
+
+            bgModal.style.display = 'none';
+            modalEdit.style.display = 'none';
+        });
+
+        btnColors.forEach(item => item.addEventListener('click', function(){
+            textEdit.style.backgroundColor = this.style.backgroundColor;
+        }));
+
+        const notes = [
+                {id: 1, text: "Hello world!", backgroundColor: '#ccf', x: 10, y: 300},
+                {id: 2, text: "Good morning!", backgroundColor: '#fcc', x: 100, y: 400}
+            ];
+
+        renderNote();        
+
+        function renderNote(){
+            container.innerHTML = '';
+
+            notes.forEach(item => {
+                const containerNote = document.createElement('div');
+                containerNote.className = 'container-note';
+                containerNote.style.left = item.x + 'px';
+                containerNote.style.top = item.y + 'px';
+                containerNote.style.backgroundColor = item.backgroundColor;
+                containerNote.innerText = item.text;
+
+                container.appendChild(containerNote);
+                if(lastId < item.id) lastId = item.id;
+            });            
+            
+        }
+
+    </script>
+</body>
+</html>
