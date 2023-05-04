@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Notes - Draggable</title>
+    <meta name="description" content="App to create pinnable notes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <style>
+        body {
+            background-color: #333;
+            margin: 0px;
+            padding: 0px;
+            font-family: Verdana;
+            font-size: small;
+            color: black;
+        }
+
+        #btnAdd{
+            position: absolute;
+        }
+        
+    </style>
+</head>
+<body>
+    <img class="btn" id="btnAdd" src="img/add.png" alt="Add" draggable="true" />
+    <script>        
+        const btnAdd = document.getElementById('btnAdd');
+        btnAdd.addEventListener('dragend', function(e){
+            this.style.left = (e.pageX - 36) + 'px';
+            this.style.top = (e.pageY - 36) + 'px';
+        });
+    </script>
+</body>
+</html>
