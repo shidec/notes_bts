@@ -28,8 +28,8 @@
     <script>        
         const btnAdd = document.getElementById('btnAdd');
         btnAdd.addEventListener('dragend', function(e){
-            this.style.left = (e.pageX - 36) + 'px';
-            this.style.top = (e.pageY - 36) + 'px';
+            this.style.left = e.pageX + 'px';
+            this.style.top = e.pageY + 'px';
         });
     </script>
 </body>
