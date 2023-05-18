@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Join()</title>
+    <meta name="description" content="App to create pinnable notes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+</head>
+<body>
+    <h1>Method join() pada array</h1>
+    Silakan buka liat source dan buka Web Developer Console untuk mengamati script ini.
+    <script>   
+        
+        const arrayFruits = ['Jeruk', 'Apel', 'Jambu', 'Anggur']
+        console.log(arrayFruits);
+        /**
+         * join() digunakan untuk menggabungkan array menjadi string
+         */
+
+        //-- CONTOH: 
+        //-- menyambung array menggunakan perulangan:
+
+        let stringFruits1 = '';
+        arrayFruits.forEach((item, index) => {
+            //-- jika bukan yang pertama, tambahkan tanda koma
+            if(index > 0) stringFruits1 += ', ';
+
+            //-- tambahkan item saat ini
+            stringFruits1 += item; 
+        });
+        console.log('Hasil menyambung array : ' + stringFruits1);
+
+        //-- menyambung array menggunakan join()
+        let stringFruits2 = arrayFruits.join(', ');
+        console.log('Hasil join() : ' + stringFruits2);
+    </script>
+</body>
+</html>

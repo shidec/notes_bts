@@ -24,9 +24,10 @@
     </style>
 </head>
 <body>
-    <img class="btn" id="btnAdd" src="img/add.png" alt="Add" draggable="true" />
-    <script>        
+    <img class="btn" id="btnAdd" src="img/add.png" alt="Add" draggable="true" /><script>   
+         
         const btnAdd = document.getElementById('btnAdd');
+
         btnAdd.addEventListener('dragend', function(e){
             this.style.left = e.pageX + 'px';
             this.style.top = e.pageY + 'px';
